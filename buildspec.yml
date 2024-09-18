@@ -4,9 +4,14 @@ phases:
   install:
     commands:
       - echo Installing Node.js
-      - npm install
+      - npm install || { echo "npm install failed"; exit 1; }
 
   build:
     commands:
       - echo Build started on `date`
-      - npm test
+      - npm test || { echo "Tests failed"; exit 1; }
+
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
